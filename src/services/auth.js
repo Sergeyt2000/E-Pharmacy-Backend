@@ -20,3 +20,21 @@ export const registerUser = async (payload) => {
     user: newUser,
   };
 };
+
+export const loginUser = async (payload) => {
+  const user = await UsersCollection.findOne({ email: payload.email });
+
+  if (!user) {
+    throw createHttpError(401, 'Email or password is wrong');
+  }
+
+  const isPasswordValid = await bcrypt.compare(payload.password, user.password);
+
+  if (!isPasswordValid) {
+    throw createHttpError(401, 'Email or password is wrong');
+  }
+
+  return {
+    user,
+  };
+};
