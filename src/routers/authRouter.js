@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
   registerUserController,
   loginUserController,
+  logoutUserController,
 } from '../controllers/auth.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from '../middlewares/validateBody.js';
@@ -15,7 +16,7 @@ router.post(
   ctrlWrapper(registerUserController),
 );
 
-// router.post('/logout', ctrlWrapper(logoutController));
+router.post('/logout', ctrlWrapper(logoutUserController));
 
 router.post(
   '/login',

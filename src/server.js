@@ -6,6 +6,7 @@ import { getAllProducts, getProductById } from './services/products.js';
 import apiRouter from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import cookieParser from 'cookie-parser';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -22,6 +23,7 @@ export const startServer = () => {
       },
     }),
   );
+  app.use(cookieParser());
 
   app.get('/', (req, res) => {
     res.json({
