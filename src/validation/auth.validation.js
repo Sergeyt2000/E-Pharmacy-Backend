@@ -3,6 +3,7 @@ import Joi from 'joi';
 export const registerSchema = Joi.object({
   name: Joi.string().max(16).required(),
   email: Joi.string().email().max(128).required(),
+  phone: Joi.string().pattern(/^\+?[1-9]\d{1,14}$/).required(),
   password: Joi.string().min(8).max(128).required(),
 });
 

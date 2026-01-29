@@ -3,6 +3,7 @@ import {
   loginUser,
   logoutUser,
   refreshSession,
+  getCurrentUser,
 } from '../services/auth.js';
 
 export const registerUserController = async (req, res) => {
@@ -20,7 +21,7 @@ export const loginUserController = async (req, res) => {
 
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expire: session.refreshTokenValidUntil
+    expire: session.refreshTokenValidUntil,
   });
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
@@ -31,7 +32,8 @@ export const loginUserController = async (req, res) => {
     status: 200,
     message: 'User logged in successfully',
     data: { accessToken: session.accessToken },
-  });};
+  });
+};
 
 export const logoutUserController = async (req, res) => {
   const sessionId = req.cookies.sessionId;
@@ -53,7 +55,7 @@ export const refreshTokenController = async (req, res) => {
   const session = await refreshSession(sessionId, refreshToken);
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expire: session.refreshTokenValidUntil
+    expire: session.refreshTokenValidUntil,
   });
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
@@ -64,5 +66,19 @@ export const refreshTokenController = async (req, res) => {
     status: 200,
     message: 'Session refreshed successfully',
     data: { accessToken: session.accessToken },
+  });
+};
+
+export const getUserInfoController = async (req, res) => {
+  console.log('user ID:', req.user);
+  const user = await getCurrentUser(req.user.id);
+
+  res.status(200).json({
+    status: 200,
+    message: 'User info retrieved successfully',
+    data: {
+      Username: user.name,
+      Email: user.email,
+    },
   });
 };

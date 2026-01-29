@@ -74,3 +74,13 @@ export const refreshSession = async (sessionId, refreshToken) => {
     refreshTokenValidUntil: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // 1 day
   });
 };
+
+export const getCurrentUser = async (userId) => {
+  const user = await UserCollection.findById(userId).select('-password');
+
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  return user;
+};

@@ -6,15 +6,17 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // avatar: {
-    //   type: String,
-    //   default: null,
-    // },
     email: {
       type: String,
       match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email address'],
       required: true,
       unique: true,
+    },
+    phone: {
+      type: String,
+      match: [/^\+?[1-9]\d{1,14}$/, 'Please provide a correct phone number'],
+      // default: null,
+      required: true,
     },
     password: {
       type: String,

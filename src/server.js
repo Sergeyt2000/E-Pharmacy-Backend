@@ -7,6 +7,7 @@ import apiRouter from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
+import { authenticateUser } from './middlewares/auth.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -33,7 +34,7 @@ export const startServer = () => {
 
   app.use(apiRouter);
 
-  app.get('/products', async (req, res) => {
+  app.get('/products', authenticateUser, async (req, res) => {
     const products = await getAllProducts();
 
     res.status(200).json({
