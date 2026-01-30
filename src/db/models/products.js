@@ -2,27 +2,34 @@ import { model, Schema } from 'mongoose';
 
 const productsSchema = new Schema(
   {
+    id: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
+    photo: {
+      type: Number,
+      required: true,
+    },
     name: {
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
-      required: true,
-    },
-    gender: {
+    suppliers: {
       type: String,
       required: true,
-      enum: ['male', 'female', 'other'],
     },
-    avgMark: {
+    stock: {
       type: Number,
       required: true,
     },
-    onDuty: {
-      type: Boolean,
+    price: {
+      type: Number,
       required: true,
-      default: false,
+    },
+    category: {
+      type: String,
+      required: true,
     },
   },
   {
