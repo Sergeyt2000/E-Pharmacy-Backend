@@ -1,7 +1,7 @@
 import { ProductsCollection } from '../db/models/products.js';
 
-export const getAllProducts = async () => {
-  const products = await ProductsCollection.find();
+export const getAllProducts = async (filters = {}) => {
+  const products = await ProductsCollection.find(filters);
   return products;
 };
 
