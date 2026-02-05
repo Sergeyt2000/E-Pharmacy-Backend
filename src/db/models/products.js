@@ -3,12 +3,12 @@ import { model, Schema } from 'mongoose';
 const productsSchema = new Schema(
   {
     id: {
-      type: Number,
+      type: String,
       required: true,
       unique: true,
     },
     photo: {
-      type: Number,
+      type: String,
       required: true,
     },
     name: {

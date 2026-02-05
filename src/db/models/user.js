@@ -22,10 +22,34 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
-    // favoritesRecipes: [
+    cart: [
+      {
+        product: {
+          type: String,
+          // type: Schema.Types.ObjectId,
+          // ref: 'products',
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          min: 1,
+          default: 1,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
+      },
+    ],
+    // orders: [
     //   {
     //     type: Schema.Types.ObjectId,
-    //     ref: 'recipes',
+    //     ref: 'orders',
     //   },
     // ],
   },
